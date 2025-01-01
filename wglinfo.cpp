@@ -323,13 +323,14 @@ public:
   static bool PrintWglInfo()
   {
     WglInfoWindow aCtxCompat (L"wglinfo");
-    if (!aCtxCompat.CreateWindowHandle()
-     || !aCtxCompat.SetWindowPixelFormat()
-     || !aCtxCompat.CreateGlContext()
-     || !aCtxCompat.MakeCurrent())
-    {
-      return false;
-    }
+    bool b = aCtxCompat.CreateWindowHandle();
+    if (!b) return false;
+    b = aCtxCompat.SetWindowPixelFormat();
+    if (!b) return false;
+    b = aCtxCompat.CreateGlContext();
+    if (!b) return false;
+    b = aCtxCompat.MakeCurrent();
+    if (!b) return false;
     ::ShowWindow (aCtxCompat.myWin, SW_HIDE);
 
     // print WGL info
